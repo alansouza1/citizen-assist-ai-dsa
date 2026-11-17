@@ -1,0 +1,240 @@
+$ python testes_dsa.py
+[PASSOU] 01. Criar ServicoCidadao válido
+       Entrada   : id=1, campos preenchidos
+       Esperado  : Objeto criado com campos sem espaços extras
+       Observado : id=1, titulo='CPF'
+[PASSOU] 02. ID não numérico
+       Entrada   : id='abc'
+       Esperado  : ValueError
+       Observado : ValueError: O ID deve ser um número inteiro (recebido: 'abc').
+[PASSOU] 03. ID zero/negativo
+       Entrada   : id=0 e id=-5
+       Esperado  : ValueError nos dois casos
+       Observado : ValueError: O ID deve ser maior que zero (recebido: -5).
+[PASSOU] 04. ID vazio / bool / float
+       Entrada   : id='', True, 3.5
+       Esperado  : ValueError nos três casos
+       Observado : ValueError: O ID deve ser um número inteiro positivo.
+[PASSOU] 05. Campo de texto vazio
+       Entrada   : titulo='   '
+       Esperado  : ValueError
+       Observado : ValueError: O campo 'Título' não pode ficar vazio.
+[PASSOU] 06. Lista vazia: estado inicial
+       Entrada   : ListaEncadeada()
+       Esperado  : len=0, cabeca=cauda=None, integra
+       Observado : HEAD -> None   (tamanho=0, cabeca=None, cauda=None)
+[PASSOU] 07. Lista vazia: listar/percorrer
+       Entrada   : listar()
+       Esperado  : [] (nenhuma linha)
+       Observado : listar() -> []
+[PASSOU] 08. Lista vazia: consultar por ID
+       Entrada   : buscar_por_id(1) / busca_linear_por_id(1)
+       Esperado  : None com 0 comparações
+       Observado : None, comparacoes=0
+[PASSOU] 09. Lista vazia: pesquisar texto
+       Entrada   : pesquisar('cpf')
+       Esperado  : Nenhum resultado (encontrou=False)
+       Observado : encontrou=False, registros=[]
+[PASSOU] 10. Lista vazia: atualizar
+       Entrada   : atualizar(1, titulo='X')
+       Esperado  : ListaVaziaError
+       Observado : ListaVaziaError: A lista está vazia: não há registros para atualizar.
+[PASSOU] 11. Lista vazia: remover
+       Entrada   : remover(1)
+       Esperado  : ListaVaziaError
+       Observado : ListaVaziaError: A lista está vazia: não há registros para remover.
+[PASSOU] 12. Lista vazia: ordenar (Merge Sort)
+       Entrada   : merge_sort_lista(vazia, 'titulo')
+       Esperado  : 0 comparações, lista íntegra
+       Observado : comparacoes=0, cabeca=None
+[PASSOU] 13. Lista vazia: estatísticas
+       Entrada   : estatisticas()
+       Esperado  : total=0, categorias=[]
+       Observado : {'total': 0, 'categorias': []}
+[PASSOU] 14. Lista vazia: limpar / converter
+       Entrada   : limpar(), para_colecao()
+       Esperado  : 0 removidos, colecao []
+       Observado : limpar()=0, para_colecao()=[]
+[PASSOU] 15. Inserir primeiro registro
+       Entrada   : inserir(id=10)
+       Esperado  : cabeca=cauda=No(10), len=1
+       Observado : HEAD -> [10] -> None   (tamanho=1, cabeca=10, cauda=10)
+[PASSOU] 16. Inserir vários (no fim)
+       Entrada   : ids 3, 1, 2
+       Esperado  : Ordem de inserção preservada: 3->1->2
+       Observado : HEAD -> [3] -> [1] -> [2] -> None   (tamanho=3, cabeca=3, cauda=2)
+[PASSOU] 17. Inserir no início
+       Entrada   : lista 3->1; inserir_no_inicio(9)
+       Esperado  : 9->3->1
+       Observado : HEAD -> [9] -> [3] -> [1] -> None   (tamanho=3, cabeca=9, cauda=1)
+[PASSOU] 18. ID duplicado bloqueado
+       Entrada   : lista 1->2; inserir(id=2)
+       Esperado  : IdDuplicadoError e lista inalterada
+       Observado : IdDuplicadoError: Já existe um registro com o ID 2. | lista=[1, 2]
+[PASSOU] 19. Inserir tipo inválido
+       Entrada   : inserir('texto')
+       Esperado  : TypeError
+       Observado : TypeError: Somente objetos ServicoCidadao podem ser inseridos.
+[PASSOU] 20. Carga inicial + recarga
+       Entrada   : carregar 2x
+       Esperado  : 12 inseridos; depois 0 inseridos/12 ignorados
+       Observado : 1a carga=(12, 0), 2a carga=(0, 12)
+[PASSOU] 21. Consultar ID existente (meio)
+       Entrada   : dados iniciais; busca_linear_por_id(9)
+       Esperado  : Cartão SUS, 5 comparações
+       Observado : [9] Cartão Nacional de Saúde (Cartão SUS) (Saúde), comparacoes=5
+[PASSOU] 22. Consultar ID na cabeça (melhor caso)
+       Entrada   : busca_linear_por_id(7)
+       Esperado  : 1 comparação
+       Observado : [7] Pedir o seguro-desemprego (Trabalho e Renda), comparacoes=1
+[PASSOU] 23. Consultar ID inexistente (pior caso)
+       Entrada   : busca_linear_por_id(999)
+       Esperado  : None após n=12 comparações
+       Observado : None, comparacoes=12
+[PASSOU] 24. Consultar com ID inválido
+       Entrada   : buscar_por_id('x')
+       Esperado  : ValueError
+       Observado : ValueError: O ID deve ser um número inteiro (recebido: 'x').
+[PASSOU] 25. Pesquisa por título sem acento/maiúsculas
+       Entrada   : titulo contém 'CARTAO'
+       Esperado  : Somente id 9 ('Cartão Nacional de Saúde')
+       Observado : ids=[9], comparacoes=12
+[PASSOU] 26. Pesquisa por categoria
+       Entrada   : categoria contém 'documentacao'
+       Esperado  : 4 registros: [2, 1, 3, 4]
+       Observado : ids=[2, 1, 3, 4]
+[PASSOU] 27. Pesquisa em ambos os campos
+       Entrada   : 'saude' em título ou categoria
+       Esperado  : [9, 10]
+       Observado : ids=[9, 10], comparacoes=23
+[PASSOU] 28. Pesquisa sem resultado
+       Entrada   : 'passaporte'
+       Esperado  : encontrou=False, lista vazia de resultados
+       Observado : encontrou=False, comparacoes=24
+[PASSOU] 29. Pesquisa com termo vazio / campo inválido
+       Entrada   : termo='  ' ; campo='local'
+       Esperado  : ValueError nos dois casos
+       Observado : ValueError: Campo de pesquisa inválido: 'local'. Use titulo, categoria ou ambos.
+[PASSOU] 30. Normalização de texto
+       Entrada   : normalizar('  SAÚDE   e Educação ')
+       Esperado  : 'saude e educacao'
+       Observado : 'saude e educacao'
+[PASSOU] 31. Atualizar campos existentes
+       Entrada   : atualizar(5, titulo, local)
+       Esperado  : Campos alterados, mesmo nó e encadeamento
+       Observado : alterados=['titulo', 'local_atendimento'], ids=[1, 5, 8]
+[PASSOU] 32. Atualizar ID inexistente
+       Entrada   : atualizar(99, titulo='X')
+       Esperado  : RegistroNaoEncontradoError
+       Observado : RegistroNaoEncontradoError: Nenhum registro com o ID 99.
+[PASSOU] 33. Atualizar com valor vazio (atômico)
+       Entrada   : atualizar(1, titulo='Novo', categoria='')
+       Esperado  : ValueError e nada alterado
+       Observado : ValueError: O campo 'Categoria' não pode ficar vazio. | titulo mantido
+[PASSOU] 34. Atualizar campo proibido/inexistente
+       Entrada   : atualizar(1, id=7) ; atualizar(1, cor='x')
+       Esperado  : ValueError nos dois casos
+       Observado : ValueError: Campo inexistente: 'cor'.
+[PASSOU] 35. Remover do início
+       Entrada   : lista 1->2->3; remover(1)
+       Esperado  : 2->3, cabeca=2
+       Observado : HEAD -> [2] -> [3] -> None   (tamanho=2, cabeca=2, cauda=3)
+[PASSOU] 36. Remover do meio
+       Entrada   : lista 1->2->3; remover(2)
+       Esperado  : 1->3 (1.proximo aponta p/ 3)
+       Observado : HEAD -> [1] -> [3] -> None   (tamanho=2, cabeca=1, cauda=3)
+[PASSOU] 37. Remover do fim
+       Entrada   : lista 1->2->3; remover(3)
+       Esperado  : 1->2, cauda=2, cauda.proximo=None
+       Observado : após remover(3) e inserir(4): HEAD -> [1] -> [2] -> [4] -> None   (tamanho=3, cabeca=1, cauda=4)
+[PASSOU] 38. Remover único elemento
+       Entrada   : lista 7; remover(7)
+       Esperado  : Lista vazia, cabeca=cauda=None
+       Observado : HEAD -> None   (tamanho=0, cabeca=None, cauda=None)
+[PASSOU] 39. Remover ID inexistente
+       Entrada   : lista 1->2; remover(50)
+       Esperado  : RegistroNaoEncontradoError, lista intacta
+       Observado : RegistroNaoEncontradoError: Nenhum registro com o ID 50.
+[PASSOU] 40. Remover com ID inválido
+       Entrada   : remover('dois')
+       Esperado  : ValueError
+       Observado : ValueError: O ID deve ser um número inteiro (recebido: 'dois').
+[PASSOU] 41. Merge Sort por ID (crescente)
+       Entrada   : dados iniciais (ordem 7,2,11,...)
+       Esperado  : [1,2,3,4,5,6,7,9,10,11,12,13]
+       Observado : ids=[1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13], comparacoes=31
+[PASSOU] 42. Merge Sort por ID (decrescente)
+       Entrada   : decrescente=True
+       Esperado  : [13,12,...,1]
+       Observado : ids=[13, 12, 11, 10, 9, 7, 6, 5, 4, 3, 2, 1]
+[PASSOU] 43. Merge Sort por título
+       Entrada   : critério 'titulo'
+       Esperado  : Títulos em ordem alfabética (sem acento)
+       Observado : 1o='Alistamento militar obrigatório' ... ultimo='Vacinação gratuita e caderneta'
+[PASSOU] 44. Merge Sort por categoria
+       Entrada   : critério 'categoria'
+       Esperado  : Assistência Social primeiro, Trabalho e Renda por último
+       Observado : categorias=['Assistência Social', 'Assistência Social', 'Documentação', 'Documentação', 'Documentação', 'Documentação', 'Educação e Qualificação', 'Saúde', 'Saúde', 'Serviços Urbanos', 'Trabalho e Renda', 'Trabalho e Renda']
+[PASSOU] 45. Merge Sort reutiliza os mesmos nós
+       Entrada   : ordenar por id
+       Esperado  : Mesmo conjunto de objetos No (só ponteiros mudam)
+       Observado : 12 nós antes = 12 nós depois (mesmas referências)
+[PASSOU] 46. Merge Sort: empate de categoria
+       Entrada   : 3 registros mesma categoria (ids 3,1,2)
+       Esperado  : Empate desfeito por título e depois id
+       Observado : ids=[1, 2, 3]
+[PASSOU] 47. Merge Sort 1 elemento / já ordenada
+       Entrada   : lista 5 ; lista 1..8
+       Esperado  : 0 comparações ; ordem mantida
+       Observado : 1 elem: 0 comp; já ordenada (n=8): 12 comp (melhor caso n/2*log2 n = 12)
+[PASSOU] 48. Merge Sort aleatório (200 registros)
+       Entrada   : ids embaralhados, seed=2026
+       Esperado  : Ordenado de 1 a 200; igual ao Merge Sort via coleção
+       Observado : ordenado; comparacoes nós=1276, colecao=1284 (n log2 n ~ 1529)
+[PASSOU] 49. Critério de ordenação inválido
+       Entrada   : merge_sort_lista(l, 'local')
+       Esperado  : ValueError, lista intacta
+       Observado : ValueError: Critério de ordenação inválido: 'local'. Use id, titulo ou categoria.
+[PASSOU] 50. Estatísticas por categoria
+       Entrada   : dados iniciais
+       Esperado  : total=12; Documentação=4 (33.33%)
+       Observado : total=12, categorias=6, Documentação=(4, 33.33)
+[PASSOU] 51. Conversão lista -> coleção -> lista
+       Entrada   : para_colecao() e de_colecao()
+       Esperado  : Mesma ordem; original intacta
+       Observado : colecao com 12 itens; reconstruída íntegra
+[PASSOU] 52. Reconstrução rejeita duplicados
+       Entrada   : reconstruir_de_colecao([1, 2, 1])
+       Esperado  : IdDuplicadoError, lista original preservada
+       Observado : IdDuplicadoError: Já existe um registro com o ID 1.
+[PASSOU] 53. CRUD completo em sequência
+       Entrada   : inserir 3, atualizar, remover, consultar
+       Esperado  : Estado final consistente
+       Observado : HEAD -> [2] -> [11] -> None   (tamanho=2, cabeca=2, cauda=11)
+[PASSOU] 54. Menu: opções inexistentes e vazias
+       Entrada   : 'abc', '', '42', '0'
+       Esperado  : Mensagens de erro, sem traceback
+       Observado : 3 avisos exibidos; encerrou normalmente
+[PASSOU] 55. Menu: operações 2-8 com lista vazia
+       Entrada   : 2,3,4,5,6,7,8 e 9->2
+       Esperado  : Aviso 'lista está vazia' em todas
+       Observado : 7 avisos de lista vazia + 'lista já está vazia'
+[PASSOU] 56. Menu: cadastro com ID inválido e duplicado
+       Entrada   : 1->'x' ; 9->1 ; 1->'7'
+       Esperado  : Entrada inválida ; ID duplicado
+       Observado : ValueError e duplicidade tratados; len=12
+[PASSOU] 57. Menu: cadastro válido com campo vazio repetido
+       Entrada   : 1->20, título '' e depois 'Emitir passaporte'...
+       Esperado  : Registro 20 cadastrado
+       Observado : aviso de campo vazio + cadastro OK; ids=[20]
+[PASSOU] 58. Menu: consulta, pesquisa, atualização e exclusão
+       Entrada   : fluxo 9,3,4,5,6,7,8
+       Esperado  : Todas as operações concluídas
+       Observado : 11 registros ao final; nenhum traceback
+[PASSOU] 59. Menu: Ctrl+D (EOF) no meio de uma operação
+       Entrada   : 1 -> EOF
+       Esperado  : Encerra sem traceback
+       Observado : operação cancelada e menu encerrado
+
+RESUMO: 59/59 testes passaram, 0 falharam.
+(código de saída: 0)

@@ -1,0 +1,272 @@
+$ python demonstracao_dsa.py
+CITIZEN ASSIST AI - DEMONSTRAÇÃO PRÁTICA DA LISTA ENCADEADA (DSA)
+Aluno: Alan Júnior Araújo de Souza - RM 574112 (Individual)
+
+========================================================================
+PASSO 01 - Lista vazia recém-criada
+========================================================================
+Estado: HEAD -> None   (tamanho=0, cabeca=None, cauda=None)
+   (nenhum nó: cabeca = None, cauda = None)
+
+========================================================================
+PASSO 02 - Inserção do primeiro registro (id 7) - cabeça e cauda apontam para o mesmo nó
+========================================================================
+Depois: HEAD -> [7] -> None   (tamanho=1, cabeca=7, cauda=7)
+   pos  nó     dado                                       proximo -> 
+   1    N7     [7] Pedir o seguro-desemprego (Trabalho... None        CABEÇA/CAUDA
+   Integridade verificada: OK
+
+========================================================================
+PASSO 03 - Inserções no fim (ids 2, 11, 1, 9) - a antiga cauda passa a apontar para o novo nó
+========================================================================
+   inserir(2): N7.proximo = N2 ; cauda = N2
+   inserir(11): N2.proximo = N11 ; cauda = N11
+   inserir(1): N11.proximo = N1 ; cauda = N1
+   inserir(9): N1.proximo = N9 ; cauda = N9
+Depois: HEAD -> [7] -> [2] -> [11] -> [1] -> [9] -> None   (tamanho=5, cabeca=7, cauda=9)
+   pos  nó     dado                                       proximo -> 
+   1    N7     [7] Pedir o seguro-desemprego (Trabalho... N2          CABEÇA
+   2    N2     [2] Carteira de Identidade Nacional (CI... N11         
+   3    N11    [11] Inscrição no Cadastro Único (CadÚn... N1          
+   4    N1     [1] Tirar o CPF pela primeira vez (Docu... N9          
+   5    N9     [9] Cartão Nacional de Saúde (Cartão SU... None        CAUDA
+   Integridade verificada: OK
+
+========================================================================
+PASSO 04 - Tentativa de inserir ID duplicado (id 11)
+========================================================================
+   Bloqueado -> IdDuplicadoError: Já existe um registro com o ID 11.
+Lista inalterada: HEAD -> [7] -> [2] -> [11] -> [1] -> [9] -> None   (tamanho=5, cabeca=7, cauda=9)
+   pos  nó     dado                                       proximo -> 
+   1    N7     [7] Pedir o seguro-desemprego (Trabalho... N2          CABEÇA
+   2    N2     [2] Carteira de Identidade Nacional (CI... N11         
+   3    N11    [11] Inscrição no Cadastro Único (CadÚn... N1          
+   4    N1     [1] Tirar o CPF pela primeira vez (Docu... N9          
+   5    N9     [9] Cartão Nacional de Saúde (Cartão SU... None        CAUDA
+   Integridade verificada: OK
+
+========================================================================
+PASSO 05 - Consulta por ID com busca linear (existente, cabeça e inexistente)
+========================================================================
+   busca_linear_por_id(1): [1] Tirar o CPF pela primeira vez (Documentação) após 4 comparação(ões)
+   busca_linear_por_id(7): [7] Pedir o seguro-desemprego (Trabalho e Renda) após 1 comparação(ões)
+   busca_linear_por_id(99): NÃO ENCONTRADO após 5 comparações (percorreu tudo)
+
+========================================================================
+PASSO 06 - Pesquisa textual (sem acento / sem maiúsculas)
+========================================================================
+   pesquisar('DOCUMENTACAO', categoria): 2 resultado(s) -> [2] Carteira de Identidade Nacional (CIN) (Documentação), [1] Tirar o CPF pela primeira vez (Documentação)
+   pesquisar('cartão', titulo): 1 resultado(s) -> [9] Cartão Nacional de Saúde (Cartão SUS) (Saúde)
+   pesquisar('passaporte', ambos): nenhum registro encontrado (10 comparações)
+
+========================================================================
+PASSO 07 - Atualização do registro 11 - só o dado muda, os ponteiros são preservados
+========================================================================
+Antes : HEAD -> [7] -> [2] -> [11] -> [1] -> [9] -> None   (tamanho=5, cabeca=7, cauda=9)
+   pos  nó     dado                                       proximo -> 
+   1    N7     [7] Pedir o seguro-desemprego (Trabalho... N2          CABEÇA
+   2    N2     [2] Carteira de Identidade Nacional (CI... N11         
+   3    N11    [11] Inscrição no Cadastro Único (CadÚn... N1          
+   4    N1     [1] Tirar o CPF pela primeira vez (Docu... N9          
+   5    N9     [9] Cartão Nacional de Saúde (Cartão SU... None        CAUDA
+   Integridade verificada: OK
+   Local antes : CRAS ou posto de cadastramento do município
+   Campos alterados: ['local_atendimento']
+   Local depois: CRAS do município ou app Cadastro Único
+   Mesmo nó? True | mesmo proximo? True
+Depois: HEAD -> [7] -> [2] -> [11] -> [1] -> [9] -> None   (tamanho=5, cabeca=7, cauda=9)
+   pos  nó     dado                                       proximo -> 
+   1    N7     [7] Pedir o seguro-desemprego (Trabalho... N2          CABEÇA
+   2    N2     [2] Carteira de Identidade Nacional (CI... N11         
+   3    N11    [11] Inscrição no Cadastro Único (CadÚn... N1          
+   4    N1     [1] Tirar o CPF pela primeira vez (Docu... N9          
+   5    N9     [9] Cartão Nacional de Saúde (Cartão SU... None        CAUDA
+   Integridade verificada: OK
+
+========================================================================
+PASSO 08 - Remoção no INÍCIO (id 7) - cabeça avança para o segundo nó
+========================================================================
+Antes : HEAD -> [7] -> [2] -> [11] -> [1] -> [9] -> None   (tamanho=5, cabeca=7, cauda=9)
+   pos  nó     dado                                       proximo -> 
+   1    N7     [7] Pedir o seguro-desemprego (Trabalho... N2          CABEÇA
+   2    N2     [2] Carteira de Identidade Nacional (CI... N11         
+   3    N11    [11] Inscrição no Cadastro Único (CadÚn... N1          
+   4    N1     [1] Tirar o CPF pela primeira vez (Docu... N9          
+   5    N9     [9] Cartão Nacional de Saúde (Cartão SU... None        CAUDA
+   Integridade verificada: OK
+   removido: [7] Pedir o seguro-desemprego (Trabalho e Renda)
+Depois: HEAD -> [2] -> [11] -> [1] -> [9] -> None   (tamanho=4, cabeca=2, cauda=9)
+   pos  nó     dado                                       proximo -> 
+   1    N2     [2] Carteira de Identidade Nacional (CI... N11         CABEÇA
+   2    N11    [11] Inscrição no Cadastro Único (CadÚn... N1          
+   3    N1     [1] Tirar o CPF pela primeira vez (Docu... N9          
+   4    N9     [9] Cartão Nacional de Saúde (Cartão SU... None        CAUDA
+   Integridade verificada: OK
+
+========================================================================
+PASSO 09 - Remoção no MEIO (id 11) - o anterior passa a apontar para o sucessor
+========================================================================
+Antes : HEAD -> [2] -> [11] -> [1] -> [9] -> None   (tamanho=4, cabeca=2, cauda=9)
+   pos  nó     dado                                       proximo -> 
+   1    N2     [2] Carteira de Identidade Nacional (CI... N11         CABEÇA
+   2    N11    [11] Inscrição no Cadastro Único (CadÚn... N1          
+   3    N1     [1] Tirar o CPF pela primeira vez (Docu... N9          
+   4    N9     [9] Cartão Nacional de Saúde (Cartão SU... None        CAUDA
+   Integridade verificada: OK
+   removido: [11] Inscrição no Cadastro Único (CadÚnico) (Assistência Social)
+Depois: HEAD -> [2] -> [1] -> [9] -> None   (tamanho=3, cabeca=2, cauda=9)
+   pos  nó     dado                                       proximo -> 
+   1    N2     [2] Carteira de Identidade Nacional (CI... N1          CABEÇA
+   2    N1     [1] Tirar o CPF pela primeira vez (Docu... N9          
+   3    N9     [9] Cartão Nacional de Saúde (Cartão SU... None        CAUDA
+   Integridade verificada: OK
+
+========================================================================
+PASSO 10 - Remoção no FIM (id 9) - a cauda recua para o anterior
+========================================================================
+Antes : HEAD -> [2] -> [1] -> [9] -> None   (tamanho=3, cabeca=2, cauda=9)
+   pos  nó     dado                                       proximo -> 
+   1    N2     [2] Carteira de Identidade Nacional (CI... N1          CABEÇA
+   2    N1     [1] Tirar o CPF pela primeira vez (Docu... N9          
+   3    N9     [9] Cartão Nacional de Saúde (Cartão SU... None        CAUDA
+   Integridade verificada: OK
+   removido: [9] Cartão Nacional de Saúde (Cartão SUS) (Saúde)
+Depois: HEAD -> [2] -> [1] -> None   (tamanho=2, cabeca=2, cauda=1)
+   pos  nó     dado                                       proximo -> 
+   1    N2     [2] Carteira de Identidade Nacional (CI... N1          CABEÇA
+   2    N1     [1] Tirar o CPF pela primeira vez (Docu... None        CAUDA
+   Integridade verificada: OK
+
+========================================================================
+PASSO 11 - Remoção de ID inexistente (id 50)
+========================================================================
+   RegistroNaoEncontradoError: Nenhum registro com o ID 50.
+Lista inalterada: HEAD -> [2] -> [1] -> None   (tamanho=2, cabeca=2, cauda=1)
+   pos  nó     dado                                       proximo -> 
+   1    N2     [2] Carteira de Identidade Nacional (CI... N1          CABEÇA
+   2    N1     [1] Tirar o CPF pela primeira vez (Docu... None        CAUDA
+   Integridade verificada: OK
+
+========================================================================
+PASSO 12 - Carga dos dados iniciais do Citizen Assist AI (ids já existentes são ignorados)
+========================================================================
+   inseridos=10, ignorados=2
+Depois: HEAD -> [2] -> [1] -> [7] -> [11] -> [9] -> [5] -> [13] -> [3] -> [10] -> [6] -> [12] -> [4] -> None   (tamanho=12, cabeca=2, cauda=4)
+   pos  nó     dado                                       proximo -> 
+   1    N2     [2] Carteira de Identidade Nacional (CI... N1          CABEÇA
+   2    N1     [1] Tirar o CPF pela primeira vez (Docu... N7          
+   3    N7     [7] Pedir o seguro-desemprego (Trabalho... N11         
+   4    N11    [11] Inscrição no Cadastro Único (CadÚn... N9          
+   5    N9     [9] Cartão Nacional de Saúde (Cartão SU... N5          
+   6    N5     [5] Carteira de Trabalho Digital (Traba... N13         
+   7    N13    [13] Tarifa Social de Energia Elétrica ... N3          
+   8    N3     [3] Primeiro título de eleitor (Documen... N10         
+   9    N10    [10] Vacinação gratuita e caderneta (Sa... N6          
+   10   N6     [6] Programa Jovem Aprendiz (Educação e... N12         
+   11   N12    [12] Reclamação de direitos do consumid... N4          
+   12   N4     [4] Alistamento militar obrigatório (Do... None        CAUDA
+   Integridade verificada: OK
+
+========================================================================
+PASSO 13 - Merge Sort por id (crescente) - religação dos nós existentes
+========================================================================
+Antes : HEAD -> [2] -> [1] -> [7] -> [11] -> [9] -> [5] -> [13] -> [3] -> [10] -> [6] -> [12] -> [4] -> None   (tamanho=12, cabeca=2, cauda=4)
+Depois: HEAD -> [1] -> [2] -> [3] -> [4] -> [5] -> [6] -> [7] -> [9] -> [10] -> [11] -> [12] -> [13] -> None   (tamanho=12, cabeca=1, cauda=13)
+   pos  nó     dado                                       proximo -> 
+   1    N1     [1] Tirar o CPF pela primeira vez (Docu... N2          CABEÇA
+   2    N2     [2] Carteira de Identidade Nacional (CI... N3          
+   3    N3     [3] Primeiro título de eleitor (Documen... N4          
+   4    N4     [4] Alistamento militar obrigatório (Do... N5          
+   5    N5     [5] Carteira de Trabalho Digital (Traba... N6          
+   6    N6     [6] Programa Jovem Aprendiz (Educação e... N7          
+   7    N7     [7] Pedir o seguro-desemprego (Trabalho... N9          
+   8    N9     [9] Cartão Nacional de Saúde (Cartão SU... N10         
+   9    N10    [10] Vacinação gratuita e caderneta (Sa... N11         
+   10   N11    [11] Inscrição no Cadastro Único (CadÚn... N12         
+   11   N12    [12] Reclamação de direitos do consumid... N13         
+   12   N13    [13] Tarifa Social de Energia Elétrica ... None        CAUDA
+   Integridade verificada: OK
+   Comparações: 29 | mesmos 12 nós reutilizados (nenhuma cópia): True
+
+========================================================================
+PASSO 14 - Merge Sort por titulo (crescente) - religação dos nós existentes
+========================================================================
+Antes : HEAD -> [1] -> [2] -> [3] -> [4] -> [5] -> [6] -> [7] -> [9] -> [10] -> [11] -> [12] -> [13] -> None   (tamanho=12, cabeca=1, cauda=13)
+Depois: HEAD -> [4] -> [9] -> [2] -> [5] -> [11] -> [7] -> [3] -> [6] -> [12] -> [13] -> [1] -> [10] -> None   (tamanho=12, cabeca=4, cauda=10)
+   pos  nó     dado                                       proximo -> 
+   1    N4     [4] Alistamento militar obrigatório (Do... N9          CABEÇA
+   2    N9     [9] Cartão Nacional de Saúde (Cartão SU... N2          
+   3    N2     [2] Carteira de Identidade Nacional (CI... N5          
+   4    N5     [5] Carteira de Trabalho Digital (Traba... N11         
+   5    N11    [11] Inscrição no Cadastro Único (CadÚn... N7          
+   6    N7     [7] Pedir o seguro-desemprego (Trabalho... N3          
+   7    N3     [3] Primeiro título de eleitor (Documen... N6          
+   8    N6     [6] Programa Jovem Aprendiz (Educação e... N12         
+   9    N12    [12] Reclamação de direitos do consumid... N13         
+   10   N13    [13] Tarifa Social de Energia Elétrica ... N1          
+   11   N1     [1] Tirar o CPF pela primeira vez (Docu... N10         
+   12   N10    [10] Vacinação gratuita e caderneta (Sa... None        CAUDA
+   Integridade verificada: OK
+   Comparações: 33 | mesmos 12 nós reutilizados (nenhuma cópia): True
+
+========================================================================
+PASSO 15 - Merge Sort por categoria (crescente) - religação dos nós existentes
+========================================================================
+Antes : HEAD -> [4] -> [9] -> [2] -> [5] -> [11] -> [7] -> [3] -> [6] -> [12] -> [13] -> [1] -> [10] -> None   (tamanho=12, cabeca=4, cauda=10)
+Depois: HEAD -> [11] -> [13] -> [4] -> [2] -> [3] -> [1] -> [6] -> [9] -> [10] -> [12] -> [5] -> [7] -> None   (tamanho=12, cabeca=11, cauda=7)
+   pos  nó     dado                                       proximo -> 
+   1    N11    [11] Inscrição no Cadastro Único (CadÚn... N13         CABEÇA
+   2    N13    [13] Tarifa Social de Energia Elétrica ... N4          
+   3    N4     [4] Alistamento militar obrigatório (Do... N2          
+   4    N2     [2] Carteira de Identidade Nacional (CI... N3          
+   5    N3     [3] Primeiro título de eleitor (Documen... N1          
+   6    N1     [1] Tirar o CPF pela primeira vez (Docu... N6          
+   7    N6     [6] Programa Jovem Aprendiz (Educação e... N9          
+   8    N9     [9] Cartão Nacional de Saúde (Cartão SU... N10         
+   9    N10    [10] Vacinação gratuita e caderneta (Sa... N12         
+   10   N12    [12] Reclamação de direitos do consumid... N5          
+   11   N5     [5] Carteira de Trabalho Digital (Traba... N7          
+   12   N7     [7] Pedir o seguro-desemprego (Trabalho... None        CAUDA
+   Integridade verificada: OK
+   Comparações: 31 | mesmos 12 nós reutilizados (nenhuma cópia): True
+
+========================================================================
+PASSO 16 - Merge Sort por id (decrescente) - religação dos nós existentes
+========================================================================
+Antes : HEAD -> [11] -> [13] -> [4] -> [2] -> [3] -> [1] -> [6] -> [9] -> [10] -> [12] -> [5] -> [7] -> None   (tamanho=12, cabeca=11, cauda=7)
+Depois: HEAD -> [13] -> [12] -> [11] -> [10] -> [9] -> [7] -> [6] -> [5] -> [4] -> [3] -> [2] -> [1] -> None   (tamanho=12, cabeca=13, cauda=1)
+   pos  nó     dado                                       proximo -> 
+   1    N13    [13] Tarifa Social de Energia Elétrica ... N12         CABEÇA
+   2    N12    [12] Reclamação de direitos do consumid... N11         
+   3    N11    [11] Inscrição no Cadastro Único (CadÚn... N10         
+   4    N10    [10] Vacinação gratuita e caderneta (Sa... N9          
+   5    N9     [9] Cartão Nacional de Saúde (Cartão SU... N7          
+   6    N7     [7] Pedir o seguro-desemprego (Trabalho... N6          
+   7    N6     [6] Programa Jovem Aprendiz (Educação e... N5          
+   8    N5     [5] Carteira de Trabalho Digital (Traba... N4          
+   9    N4     [4] Alistamento militar obrigatório (Do... N3          
+   10   N3     [3] Primeiro título de eleitor (Documen... N2          
+   11   N2     [2] Carteira de Identidade Nacional (CI... N1          
+   12   N1     [1] Tirar o CPF pela primeira vez (Docu... None        CAUDA
+   Integridade verificada: OK
+   Comparações: 27 | mesmos 12 nós reutilizados (nenhuma cópia): True
+
+========================================================================
+PASSO 17 - Análise por categoria
+========================================================================
+   Total de registros: 12
+   Assistência Social          2   16.67%  ##
+   Serviços Urbanos            1    8.33%  #
+   Saúde                       2   16.67%  ##
+   Trabalho e Renda            2   16.67%  ##
+   Educação e Qualificação     1    8.33%  #
+   Documentação                4   33.33%  ####
+
+========================================================================
+PASSO 18 - Limpar lista
+========================================================================
+   removidos: 12
+Depois: HEAD -> None   (tamanho=0, cabeca=None, cauda=None)
+   (nenhum nó: cabeca = None, cauda = None)
+
+Demonstração concluída com sucesso.
